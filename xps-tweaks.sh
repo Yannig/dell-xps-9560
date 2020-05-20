@@ -24,11 +24,6 @@ add-apt-repository -y universe
 apt -y update
 apt -y full-upgrade
 
-# Install all the power management tools
-if [ "$release" != "focal" ] ; then
-    add-apt-repository -y ppa:linrunner/tlp
-    apt -y update
-fi
 apt -y install thermald tlp tlp-rdw powertop
 
 # Fix Sleep/Wake Bluetooth Bug
@@ -57,11 +52,7 @@ done
 apt -y install intel-microcode iucode-tool
 
 # Enable power saving tweaks for Intel chip
-if [[ $(uname -r) == *"4.15"* ]]; then
-    echo "options i915 enable_fbc=1 enable_guc_loading=1 enable_guc_submission=1 disable_power_well=0 fastboot=1" > /etc/modprobe.d/i915.conf
-else
-    echo "options i915 enable_fbc=1 enable_guc=3 disable_power_well=0 fastboot=1" > /etc/modprobe.d/i915.conf
-fi
+echo "options i915 enable_fbc=1 enable_guc=3 disable_power_well=0 fastboot=1" > /etc/modprobe.d/i915.conf
 
 # Let users check fan speed with lm-sensors
 echo "options dell-smm-hwmon restricted=0 force=1" > /etc/modprobe.d/dell-smm-hwmon.conf
