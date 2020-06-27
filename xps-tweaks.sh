@@ -106,4 +106,8 @@ select yn in "Yes" "No"; do
     esac
 done
 
+cp gpu-off.service /lib/systemd/system/gpu-off.service
+systemctl daemon-reload
+systemctl enable gpu-off && systemctl start gpu-off
+
 echo -e "${GREEN}FINISHED! Please reboot the machine!${NC}"

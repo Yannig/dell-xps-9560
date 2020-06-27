@@ -1,0 +1,9 @@
+[Unit]
+Description=Power-off gpu
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "prime-select query | grep intel && (echo auto > /sys/bus/pci/devices/0000\:01\:00.0/power/control)"
+
+[Install]
+WantedBy=default.target
